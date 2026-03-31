@@ -2,7 +2,7 @@
  * PhysLab Pro — Main Application
  * Routing and layout setup.
  */
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import LandingPage from './components/LandingPage';
 import OscillationsPage from './modules/oscillations/OscillationsPage';
@@ -16,7 +16,7 @@ import './index.css';
 
 export default function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <HashRouter>
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />
@@ -27,6 +27,6 @@ export default function App() {
         <Route path="/sim/faraday" element={<FaradayPage />} />
         <Route path="/modules" element={<ModulesPage />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
