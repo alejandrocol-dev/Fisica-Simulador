@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Simulador interactivo de campo magnético con líneas de campo y dipolos arrastrables">
+    <title>Simulador de Campo Magnético</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="fieldCanvas"></canvas>
+
+    <!-- Header -->
+    <header id="appHeader">
+        <div class="header-left">
+            <div class="header-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" opacity="0.3"/>
+                    <path d="M12 6c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2s2-.9 2-2V8c0-1.1-.9-2-2-2z"/>
+                    <ellipse cx="12" cy="5" rx="6" ry="3" stroke-dasharray="3 2"/>
+                    <ellipse cx="12" cy="19" rx="6" ry="3" stroke-dasharray="3 2"/>
+                </svg>
+            </div>
+            <div>
+                <h1>Campo Magnético</h1>
+                <p class="header-subtitle">Simulador Interactivo</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="field-indicator" id="fieldStrengthIndicator">
+                <span class="indicator-label">|B| máx</span>
+                <span class="indicator-value" id="maxFieldValue">0.00 T</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Controls Panel -->
+    <aside id="controlsPanel">
+        <div class="panel-header">
+            <h2>Controles</h2>
+            <button class="panel-toggle" id="panelToggle" title="Colapsar panel">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="panel-content" id="panelContent">
+            <!-- Magnet Controls -->
+            <div class="control-section">
+                <h3>Imanes</h3>
+                <div class="button-group">
+                    <button class="btn btn-primary" id="btnAddMagnet" title="Agregar imán dipolar">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        + Imán
+                    </button>
+                </div>
+
+                <div class="element-list-container">
+                    <div id="elementList" class="element-list">
+                        <!-- Elements will be listed here dynamically -->
+                    </div>
+                </div>
+
+                <p class="hint">Doble clic: añadir | Scroll: rotar | Supr: borrar seleccionado.</p>
+            </div>
+
+            <!-- Visualization Controls -->
+            <div class="control-section">
+                <h3>Visualización</h3>
+
+                <div class="control-row">
+                    <label for="lineCount">Líneas de campo</label>
+                    <div class="slider-group">
+                        <input type="range" id="lineCount" min="8" max="48" value="48" step="2">
+                        <span class="slider-value" id="lineCountValue">48</span>
+                    </div>
+                </div>
+
+                <div class="control-row">
+                    <label for="lineLength">Longitud de líneas</label>
+                    <div class="slider-group">
+                        <input type="range" id="lineLength" min="100" max="1000" value="1000" step="50">
+                        <span class="slider-value" id="lineLengthValue">1000</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Display Options -->
+            <div class="control-section">
+                <h3>Opciones</h3>
+
+                <div class="toggle-row">
+                    <label for="showFieldLines">Líneas de campo</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="showFieldLines" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-row">
+                    <label for="showArrows">Mostrar flechas</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="showArrows" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-row">
+                    <label for="showGrid">Mostrar grilla</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="showGrid" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-row">
+                    <label for="showFieldMap">Mapa de intensidad</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="showFieldMap">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="toggle-row">
+                    <label for="showCompass">Brújulas de campo</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="showCompass" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Reset -->
+            <div class="control-section">
+                <button class="btn btn-ghost" id="btnReset">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="1 4 1 10 7 10"/>
+                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                    </svg>
+                    Reiniciar Todo
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Info tooltip -->
+    <div id="magnetTooltip" class="tooltip hidden">
+        <div class="tooltip-row">
+            <span class="tooltip-label">Posición:</span>
+            <span class="tooltip-value" id="tooltipPos">0, 0</span>
+        </div>
+        <div class="tooltip-row">
+            <span class="tooltip-label">Ángulo:</span>
+            <span class="tooltip-value" id="tooltipAngle">0°</span>
+        </div>
+        <div class="tooltip-row">
+            <span class="tooltip-label">|B| local:</span>
+            <span class="tooltip-value" id="tooltipField">0 T</span>
+        </div>
+    </div>
+
+    <!-- Instructions overlay (first time) -->
+    <div id="instructionsOverlay" class="overlay">
+        <div class="overlay-card">
+            <div class="overlay-icon">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="url(#gradIcon)" stroke-width="1.5">
+                    <defs>
+                        <linearGradient id="gradIcon" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00f5ff"/>
+                            <stop offset="100%" style="stop-color:#ff006e"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" opacity="0.2"/>
+                    <rect x="10" y="4" width="4" height="16" rx="2"/>
+                    <ellipse cx="12" cy="4" rx="7" ry="3.5" stroke-dasharray="4 3"/>
+                    <ellipse cx="12" cy="20" rx="7" ry="3.5" stroke-dasharray="4 3"/>
+                </svg>
+            </div>
+            <h2>Simulador de Campo Magnético</h2>
+            <p>Explora las líneas de campo magnético de forma interactiva</p>
+            <div class="instructions-list">
+                <div class="instruction-item">
+                    <span class="instruction-icon">🧲</span>
+                    <span>Arrastra los imanes para moverlos por la pantalla</span>
+                </div>
+                <div class="instruction-item">
+                    <span class="instruction-icon">🔄</span>
+                    <span>Usa la rueda del mouse sobre un imán para rotarlo</span>
+                </div>
+                <div class="instruction-item">
+                    <span class="instruction-icon">➕</span>
+                    <span>Doble clic en el canvas para agregar nuevos imanes</span>
+                </div>
+                <div class="instruction-item">
+                    <span class="instruction-icon">⚡</span>
+                    <span>Observa cómo las líneas de campo reaccionan en tiempo real</span>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-large" id="btnStart">
+                Comenzar Simulación
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script src="simulator.js"></script>
+</body>
+</html>
