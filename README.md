@@ -1,4 +1,4 @@
-# ⚛️ PhysLab Pro — Simulador Visual de Física
+# ⚛️ PhysLab — Simulador Visual de Física
 
 [![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://reactjs.org/)
@@ -7,8 +7,7 @@
 
 > *"Ver para comprender: cada concepto físico cobra vida mediante animación y datos en tiempo real."*
 
-**PhysLab Pro** es una plataforma educativa interactiva diseñada para transformar la enseñanza de la física. A través de simulaciones de alta precisión y visualizaciones dinámicas, permite a estudiantes y docentes explorar fenómenos complejos de mecánica, ondas y electromagnetismo de forma intuitiva.
-
+**PhysLab** es una aplicación web interactiva diseñada para experimentar con las enseñanzas de las físicas. A través de simulaciones y visualizaciones dinámicas para no solo conformarse con las formulas y definiciones, sino que también entenderlas de manera visual e intuitiva.
 ---
 
 ## 🚀 Características Principales
@@ -59,7 +58,10 @@ src/modules/[tema]/
 
 ## 🛠️ Instalación y Desarrollo
 
-Para ejecutar el laboratorio localmente, sigue estos pasos:
+Puedes acceder a la versión desplegada en vivo del proyecto aquí:  
+🌐 **https://alejandrocol-dev.github.io/Fisica-Simulador/**
+
+Si prefieres ejecutar el laboratorio localmente para desarrollo, sigue estos pasos:
 
 1.  **Clonar el repositorio:**
     ```bash
@@ -78,6 +80,14 @@ Para ejecutar el laboratorio localmente, sigue estos pasos:
 
 ---
 
+## 🤝 Contribuciones (¡Estamos abiertos!)
+
+Este proyecto está en constante evolución y **próximamente estaría muy bueno agregar más cosas** (como nuevos módulos, optimizaciones y herramientas educativas). 
+
+¡El repositorio de GitHub está abierto a colaboraciones! Si tienes ideas, mejoras o quieres añadir nuevas simulaciones, siéntete libre de hacer un fork del proyecto y enviar tus *Pull Requests*. Toda ayuda, por pequeña que sea, es súper bienvenida.
+
+---
+
 ## 📖 Roadmap (Próximamente)
 
 -   [ ] **Módulo de Termodinámica:** Ciclos de gas ideal y procesos adiabáticos.
@@ -93,4 +103,4 @@ Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para má
 
 ---
 
-Desarrollado con ❤️ por [Alejandro Col](https://github.com/alejandrocol-dev)
+Desarrollado con ❤️ por **Alejandro Colchi**.
