@@ -1,4 +1,4 @@
-# ⚛️ PhysLab — Simulador Visual de Física
+# PhysLab — Simulador Visual de Física - Experimento
 
 [![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://reactjs.org/)
@@ -7,7 +7,7 @@
 
 > *"Ver para comprender: cada concepto físico cobra vida mediante animación y datos en tiempo real."*
 
-**PhysLab** es una aplicación web interactiva diseñada para experimentar con las enseñanzas de las físicas. A través de simulaciones y visualizaciones dinámicas para no solo conformarse con las formulas y definiciones, sino que también entenderlas de manera visual e intuitiva.
+**PhysLab** es una aplicación web interactiva diseñada para experimentar con las enseñanzas de las físicas. Nace de la curiosidad para pensar la fisica de manera diferente, a través de simulaciones y visualizaciones dinámicas para no solo conformarse con las formulas y definiciones, sino que también entenderlas de manera visual e intuitiva. 
 ---
 
 ## 🚀 Características Principales
@@ -80,9 +80,9 @@ Si prefieres ejecutar el laboratorio localmente para desarrollo, sigue estos pas
 
 ---
 
-## 🤝 Contribuciones (¡Estamos abiertos!)
+## 🤝 Contribuciones 
 
-Este proyecto está en constante evolución y **próximamente estaría muy bueno agregar más cosas** (como nuevos módulos, optimizaciones y herramientas educativas). 
+Este proyecto experimental está en constante evolución y **próximamente estaría muy bueno agregar más cosas** (como nuevos módulos, optimizaciones y herramientas educativas). 
 
 ¡El repositorio de GitHub está abierto a colaboraciones! Si tienes ideas, mejoras o quieres añadir nuevas simulaciones, siéntete libre de hacer un fork del proyecto y enviar tus *Pull Requests*. Toda ayuda, por pequeña que sea, es súper bienvenida.
 
