@@ -153,19 +153,26 @@ export default function ModulesPage() {
           ))}
         </div>
 
+        <div className="scroll-arrow">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 5v14M19 12l-7 7-7-7"/>
+          </svg>
+        </div>
+
         <div className="modules-footer-info" style={{ 
-          marginTop: '100px', 
+          margin: '180px auto 50px', 
           textAlign: 'center', 
           maxWidth: '950px', 
-          margin: '0 auto', 
-          padding: '50px 40px',
-          background: 'rgba(255, 255, 255, 0.02)',
-          borderRadius: '24px',
-          border: '1px solid rgba(108, 92, 231, 0.15)',
-          backdropFilter: 'blur(10px)',
-          boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+          padding: '60px 50px',
+          background: 'linear-gradient(135deg, rgba(108, 92, 231, 0.05) 0%, rgba(0, 206, 201, 0.02) 100%)',
+          borderRadius: '30px',
+          border: '1px solid rgba(108, 92, 231, 0.3)',
+          borderTop: '2px solid rgba(0, 206, 201, 0.6)',
+          backdropFilter: 'blur(15px)',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.4), inset 0 1px 20px rgba(108, 92, 231, 0.1)',
           animation: 'fadeUp 1.2s ease both',
-          animationDelay: '0.6s'
+          animationDelay: '0.6s',
+          position: 'relative'
         }}>
           <div style={{ 
             fontFamily: 'Space Mono, monospace', 
