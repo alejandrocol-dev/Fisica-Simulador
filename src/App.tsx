@@ -12,6 +12,7 @@ import EnergyPage from './modules/energy/EnergyPage';
 import MagneticFieldPage from './modules/electromagnetism/MagneticFieldPage';
 import FaradayPage from './modules/electromagnetism/FaradayPage';
 import ModulesPage from './components/ModulesPage';
+import ScrollToTop from './components/ScrollToTop';
 import './index.css';
 
 function AppContent() {
@@ -37,6 +38,7 @@ function AppContent() {
 export default function App() {
   return (
     <HashRouter>
+      <ScrollToTop />
       <AppContent />
     </HashRouter>
   );

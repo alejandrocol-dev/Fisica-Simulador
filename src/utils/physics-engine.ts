@@ -76,3 +76,35 @@ export function mapRange(
 ): number {
   return outMin + ((value - inMin) / (inMax - inMin)) * (outMax - outMin);
 }
+
+/**
+ * Calculates the Euclidean distance between two points.
+ */
+export function distance(x1: number, y1: number, x2: number, y2: number): number {
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+/**
+ * Normalizes a vector [x, y].
+ */
+export function normalize(x: number, y: number): [number, number] {
+  const len = Math.sqrt(x * x + y * y);
+  if (len === 0) return [0, 0];
+  return [x / len, y / len];
+}
+
+/**
+ * Converts degrees to radians.
+ */
+export function degToRad(deg: number): number {
+  return (deg * Math.PI) / 180;
+}
+
+/**
+ * Converts radians to degrees.
+ */
+export function radToDeg(rad: number): number {
+  return (rad * 180) / Math.PI;
+}

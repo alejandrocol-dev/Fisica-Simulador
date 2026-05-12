@@ -88,12 +88,15 @@ Este proyecto experimental está en constante evolución y **próximamente estar
 
 ---
 
-## 📖 Roadmap (Próximamente)
+## 🚀 Roadmap (Próximamente)
 
--   [ ] **Módulo de Termodinámica:** Ciclos de gas ideal y procesos adiabáticos.
--   [ ] **Óptica Geométrica:** Trazado de rayos en lentes y espejos.
--   [ ] **Modo Quiz:** Desafíos interactivos para poner a prueba conocimientos.
--   [ ] **Exportación de Datos:** Descarga de resultados en formato CSV para análisis externo.
+El desarrollo no se detiene. Estas son algunas de las funcionalidades planeadas para futuras versiones:
+
+-   [ ] **🌡️ Módulo de Termodinámica:** Simulación de ciclos de gas ideal, procesos adiabáticos e isotérmicos.
+-   [ ] **🔦 Óptica Geométrica:** Herramientas interactivas para el trazado de rayos en lentes y espejos.
+-   [ ] **🎮 Modo Quiz:** Desafíos y preguntas interactivas para evaluar el aprendizaje de cada módulo.
+-   [ ] **📊 Exportación de Datos:** Capacidad de descargar trayectorias y resultados en CSV/JSON para análisis profundo.
+-   [ ] **📱 Optimización Mobile:** Mejora de la experiencia táctil en todos los módulos experimentales.
 
 ---
 
