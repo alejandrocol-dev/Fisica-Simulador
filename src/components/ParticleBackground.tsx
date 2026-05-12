@@ -33,6 +33,8 @@ export default function ParticleBackground() {
     let animId: number;
     let particles: Particle[] = [];
 
+    const mouse = { x: -1000, y: -1000 };
+
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
       canvas.width = window.innerWidth * dpr;
@@ -58,6 +60,11 @@ export default function ParticleBackground() {
       }
     };
 
+    const onMouseMove = (e: MouseEvent) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
+
     const draw = () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
@@ -65,9 +72,25 @@ export default function ParticleBackground() {
 
       // Update and draw particles
       for (const p of particles) {
+        // Mouse interaction
+        const dxm = p.x - mouse.x;
+        const dym = p.y - mouse.y;
+        const distm = Math.sqrt(dxm * dxm + dym * dym);
+        if (distm < 150) {
+          const force = (150 - distm) / 1500;
+          p.vx += dxm * force * 0.05;
+          p.vy += dym * force * 0.05;
+        }
+
+        // Apply friction to mouse force
+        p.vx *= 0.99;
+        p.vy *= 0.99;
+
+        // Base movement
         p.x += p.vx;
         p.y += p.vy;
 
+        // Wrap around
         if (p.x < 0) p.x = w;
         if (p.x > w) p.x = 0;
         if (p.y < 0) p.y = h;
@@ -105,14 +128,15 @@ export default function ParticleBackground() {
     initParticles();
     draw();
 
-    window.addEventListener('resize', () => {
-      resize();
-      initParticles();
-    });
+    window.addEventListener('resize', resize);
+    window.addEventListener('resize', initParticles);
+    window.addEventListener('mousemove', onMouseMove);
 
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', initParticles);
+      window.removeEventListener('mousemove', onMouseMove);
     };
   }, []);
 

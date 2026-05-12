@@ -16,6 +16,7 @@ export function useCanvasInteraction(
   const isDragging = useRef(false);
   const lastMouse = useRef({ x: 0, y: 0 });
   const [zoomLevel, setZoomLevel] = useState(1);
+  const [isDraggingState, setIsDraggingState] = useState(false);
   const onTransformRef = useRef(onTransform);
 
   useEffect(() => {
@@ -28,6 +29,7 @@ export function useCanvasInteraction(
 
     const onMouseDown = (e: MouseEvent) => {
       isDragging.current = true;
+      setIsDraggingState(true);
       lastMouse.current = { x: e.clientX, y: e.clientY };
       canvas.style.cursor = 'grabbing';
       e.preventDefault();
@@ -45,6 +47,7 @@ export function useCanvasInteraction(
 
     const onMouseUp = () => {
       isDragging.current = false;
+      setIsDraggingState(false);
       canvas.style.cursor = 'grab';
     };
 
@@ -121,5 +124,5 @@ export function useCanvasInteraction(
     setZoomLevel(newZoom);
   }, [canvasRef]);
 
-  return { transformRef, resetView, setTransform, zoomIn, zoomOut, zoomLevel };
+  return { transformRef, resetView, setTransform, zoomIn, zoomOut, zoomLevel, isDragging: isDraggingState };
 }

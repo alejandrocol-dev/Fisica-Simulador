@@ -47,6 +47,10 @@ export function createDerivatives(params: KinematicsParams): DerivativeFunction 
   };
 }
 
+/**
+ * Progresses the physics simulation by one time step using RK4 integration.
+ * Includes ground detection and interpolation to prevent tunneling.
+ */
 export function stepKinematics(
   stateVec: number[],
   time: number,
@@ -56,28 +60,37 @@ export function stepKinematics(
   const derivs = createDerivatives(params);
   let newState = rk4Step(stateVec, time, dt, derivs);
 
-  // Ground logic
   const targetH = params.targetHeight || 0;
-  
-  if (targetH > 0 && newState[1] < targetH && stateVec[1] >= targetH) {
-    const fraction = (stateVec[1] - targetH) / (stateVec[1] - newState[1]);
-    newState[0] = stateVec[0] + (newState[0] - stateVec[0]) * fraction;
-    newState[1] = targetH;
-    newState[2] = stateVec[2] + (newState[2] - stateVec[2]) * fraction;
-    newState[3] = stateVec[3] + (newState[3] - stateVec[3]) * fraction;
-  } else if (newState[1] < 0 && stateVec[1] >= 0) {
-    const fraction = (stateVec[1] - 0) / (stateVec[1] - newState[1]);
-    newState[0] = stateVec[0] + (newState[0] - stateVec[0]) * fraction;
-    newState[1] = 0;
-    newState[2] = stateVec[2] + (newState[2] - stateVec[2]) * fraction;
-    newState[3] = stateVec[3] + (newState[3] - stateVec[3]) * fraction;
-  } else if (newState[1] < 0) {
-    newState[1] = 0;
+  const currentY = stateVec[1];
+  const nextY = newState[1];
+
+  // Ground and target height collision logic with linear interpolation
+  const detectCollision = (threshold: number) => {
+    if (nextY < threshold && currentY >= threshold) {
+      const fraction = (currentY - threshold) / (currentY - nextY);
+      newState[0] = stateVec[0] + (newState[0] - stateVec[0]) * fraction;
+      newState[1] = threshold;
+      newState[2] = stateVec[2] + (newState[2] - stateVec[2]) * fraction;
+      newState[3] = stateVec[3] + (newState[3] - stateVec[3]) * fraction;
+      return true;
+    }
+    return false;
+  };
+
+  if (!detectCollision(targetH)) {
+    if (nextY < 0) {
+      if (!detectCollision(0)) {
+        newState[1] = 0;
+      }
+    }
   }
 
   return newState;
 }
 
+/**
+ * Initializes the state vector based on launch parameters.
+ */
 export function getInitialState(params: KinematicsParams): number[] {
   const angleRad = (params.launchAngle * Math.PI) / 180;
   return [
@@ -88,6 +101,9 @@ export function getInitialState(params: KinematicsParams): number[] {
   ];
 }
 
+/**
+ * Computes derived physical properties from the current state vector.
+ */
 export function computeKinematicsState(
   stateVec: number[],
   time: number,
